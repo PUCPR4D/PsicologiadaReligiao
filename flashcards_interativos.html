@@ -1,22 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flashcards Interativos</title>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem; font-family: Arial, sans-serif;">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f6fa;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      padding: 2rem;
-    }
     .flashcard {
-      width: 220px;
-      height: 160px;
+      width: 260px;
+      height: 180px;
       perspective: 1000px;
       cursor: pointer;
     }
@@ -37,7 +23,7 @@
       height: 100%;
       backface-visibility: hidden;
       border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       padding: 1rem;
       display: flex;
       align-items: center;
@@ -45,8 +31,9 @@
       font-size: 1rem;
     }
     .card-front {
-      background-color: #0056b3;
+      background-color: #8A0538;
       color: white;
+      font-weight: bold;
     }
     .card-back {
       background-color: #f8f9fa;
@@ -55,9 +42,8 @@
       border: 1px solid #ccc;
     }
   </style>
-</head>
-<body>
 
+  <!-- Flashcard 1 -->
   <div class="flashcard">
     <div class="card-inner">
       <div class="card-front">O que é inovação?</div>
@@ -65,6 +51,7 @@
     </div>
   </div>
 
+  <!-- Flashcard 2 -->
   <div class="flashcard">
     <div class="card-inner">
       <div class="card-front">Empreendedorismo social</div>
@@ -72,12 +59,11 @@
     </div>
   </div>
 
+  <!-- Flashcard 3 -->
   <div class="flashcard">
     <div class="card-inner">
       <div class="card-front">Intraempreendedorismo</div>
       <div class="card-back">Quando colaboradores atuam como empreendedores dentro da própria organização, inovando processos e soluções.</div>
     </div>
   </div>
-
-</body>
-</html>
+</div>
