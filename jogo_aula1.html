@@ -11,68 +11,67 @@
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f7f7f7;
+            /* Padding reduzido */
+            padding: 1rem; 
         }
-        /* Estilos básicos para o item arrastável */
+        /* Estilos de compactação */
         .draggable-item {
             cursor: grab;
             transition: all 0.2s ease;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            min-height: 4rem; /* Garante que o item seja fácil de clicar/arrastar */
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            min-height: 3rem; /* Altura mínima reduzida */
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        /* Estilo para a zona de destino (drop zone) */
         .drop-zone {
             transition: background-color 0.2s ease;
             border: 2px dashed #d1d5db;
         }
-        /* Efeitos ao arrastar sobre a zona */
         .drop-zone.drag-over {
-            background-color: #fef3c7; /* Amarelo suave */
-            border-color: #f59e0b; /* Amarelo */
+            background-color: #fef3c7; 
+            border-color: #f59e0b; 
         }
-        /* Estilos de feedback */
         .correct {
-            background-color: #d1fae5 !important; /* Verde claro */
-            border-color: #059669 !important; /* Verde escuro */
+            background-color: #d1fae5 !important; 
+            border-color: #059669 !important; 
             cursor: default !important;
         }
         .incorrect {
-            background-color: #fee2e2 !important; /* Vermelho claro */
-            border-color: #ef4444 !important; /* Vermelho escuro */
+            background-color: #fee2e2 !important; 
+            border-color: #ef4444 !important; 
         }
     </style>
 </head>
 
-<body class="p-8">
+<body class="p-4">
     <div class="max-w-6xl mx-auto">
-        <h1 class="text-3xl font-bold mb-8 text-gray-800 text-center">🧠 Jogo de Relacionar Autores e Ideias-Chave</h1>
+        <h1 class="text-2xl font-bold mb-4 text-gray-800 text-center">🧠 Jogo de Relacionar Autores e Ideias-Chave</h1>
         
-        <div id="game-container" class="bg-white p-6 rounded-lg shadow-xl border border-gray-200">
+        <div id="game-container" class="bg-white p-4 rounded-lg shadow-xl border border-gray-200 max-h-[90vh] flex flex-col">
             
-            <div class="flex flex-col lg:flex-row gap-8 mb-8">
+            <div class="flex flex-col lg:flex-row gap-6 overflow-hidden flex-grow">
                 
-                <div class="lg:w-1/2 flex flex-col space-y-3">
-                    <h2 class="text-xl font-semibold text-indigo-700 border-b pb-2">Autores</h2>
-                    <div id="author-column">
+                <div class="lg:w-1/2 flex flex-col min-h-0">
+                    <h2 class="text-lg font-semibold text-indigo-700 border-b pb-1 mb-2">Autores</h2>
+                    <div id="author-column" class="flex flex-col space-y-2 overflow-y-auto pr-1"> 
                          </div>
                 </div>
 
-                <div class="lg:w-1/2">
-                    <h2 class="text-xl font-semibold text-indigo-700 border-b pb-2 mb-4">Ideias-Chave (Arraste e Solte)</h2>
-                    <div id="ideas-column" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="lg:w-1/2 flex flex-col min-h-0">
+                    <h2 class="text-lg font-semibold text-indigo-700 border-b pb-1 mb-2">Ideias-Chave (Arraste e Solte)</h2>
+                    <div id="ideas-column" class="grid grid-cols-1 sm:grid-cols-2 gap-2 overflow-y-auto pr-1">
                         </div>
                 </div>
 
             </div>
             
-            <div class="text-center mt-6">
-                <button onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 shadow-md">
+            <div class="text-center mt-4 flex-shrink-0">
+                <button onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300 shadow-md text-sm">
                     Verificar Respostas
                 </button>
-                <p id="result-message" class="text-lg font-semibold mt-4"></p>
-                <button onclick="resetGame()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded-lg transition duration-300 mt-2">
+                <p id="result-message" class="text-base font-semibold mt-2"></p>
+                <button onclick="resetGame()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded-lg transition duration-300 mt-2 text-sm">
                     Reiniciar Jogo
                 </button>
             </div>
@@ -96,7 +95,6 @@
         let correctMatches = 0;
         const totalItems = data.length;
 
-        // Função para embaralhar um array (Fisher-Yates)
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -117,7 +115,7 @@
         }
 
         function handleDragOver(e) {
-            e.preventDefault(); // Necessário para permitir o drop
+            e.preventDefault();
         }
 
         function handleDragEnter(e) {
@@ -141,29 +139,22 @@
             const targetId = e.target.dataset.id;
             const draggedElement = document.querySelector(`[data-id='${draggedId}'].draggable-item`);
 
-            // Evita soltar a ideia em outra ideia ou fora da zona de destino
-            if (!e.target.classList.contains('drop-zone') || e.target.dataset.match) {
+            if (!e.target.classList.contains('drop-zone') || e.target.dataset.match || draggedElement.dataset.matched === 'true') {
                  return;
             }
 
-            // Se a ideia arrastada já foi usada, evita soltar
-            if (draggedElement.dataset.matched === 'true') {
-                return;
-            }
-
-            // Se o ID da ideia arrastada for igual ao ID da zona de destino
             if (draggedId === targetId) {
-                // Correspondência Correta
+                // Correto
                 e.target.innerHTML = draggedElement.innerHTML;
                 e.target.classList.add('correct');
                 e.target.classList.remove('drop-zone', 'bg-gray-50', 'border-dashed');
                 
-                draggedElement.style.display = 'none'; // Esconde a ideia arrastada
+                draggedElement.style.display = 'none';
                 draggedElement.dataset.matched = 'true';
-                e.target.dataset.match = 'true'; // Marca a zona como preenchida
+                e.target.dataset.match = 'true';
                 correctMatches++;
             } else {
-                // Correspondência Incorreta (Feedback visual temporário)
+                // Incorreto
                 e.target.classList.add('incorrect');
                 setTimeout(() => {
                     e.target.classList.remove('incorrect');
@@ -181,26 +172,27 @@
             correctMatches = 0;
             document.getElementById('result-message').textContent = '';
 
-            // 1. Criar e embaralhar as ideias
             const shuffledIdeas = shuffle([...data]);
 
             // 2. Montar a coluna de Autores (Drop Zones)
             data.forEach(item => {
                 const authorDiv = document.createElement('div');
-                authorDiv.classList.add('bg-white', 'p-3', 'rounded-lg', 'shadow-md', 'flex', 'items-center', 'space-x-4', 'border');
+                // Padding reduzido: p-2
+                authorDiv.classList.add('bg-white', 'p-2', 'rounded-lg', 'shadow-md', 'flex', 'items-center', 'space-x-3', 'border');
                 
                 // Coluna do Autor
                 const authorName = document.createElement('div');
-                authorName.classList.add('w-1/3', 'font-semibold', 'text-gray-900', 'text-base');
+                // Fonte reduzida: text-sm
+                authorName.classList.add('w-1/3', 'font-semibold', 'text-gray-900', 'text-sm');
                 authorName.textContent = item.author;
                 
                 // Coluna da Ideia (Drop Zone)
                 const dropZone = document.createElement('div');
-                dropZone.classList.add('w-2/3', 'drop-zone', 'bg-gray-50', 'p-4', 'rounded-md', 'text-gray-600', 'text-sm', 'min-h-[4rem]', 'flex', 'items-center', 'justify-center', 'text-center');
+                // Padding e fonte reduzidos: p-3, min-h-[3rem], text-xs
+                dropZone.classList.add('w-2/3', 'drop-zone', 'bg-gray-50', 'p-3', 'rounded-md', 'text-gray-600', 'text-xs', 'min-h-[3rem]', 'flex', 'items-center', 'justify-center', 'text-center');
                 dropZone.dataset.id = item.id;
                 dropZone.textContent = 'Arraste a Ideia-Chave para cá';
                 
-                // Adicionar listeners ao Drop Zone
                 dropZone.addEventListener('dragover', handleDragOver);
                 dropZone.addEventListener('dragenter', handleDragEnter);
                 dropZone.addEventListener('dragleave', handleDragLeave);
@@ -214,13 +206,13 @@
             // 3. Montar as Ideias-Chave (Draggable Items)
             shuffledIdeas.forEach(item => {
                 const ideaDiv = document.createElement('div');
-                ideaDiv.classList.add('draggable-item', 'bg-yellow-100', 'hover:bg-yellow-200', 'p-3', 'rounded-md', 'text-gray-800', 'text-sm', 'font-medium', 'border', 'border-yellow-300', 'text-center');
+                // Padding e fonte reduzidos: p-3, text-xs
+                ideaDiv.classList.add('draggable-item', 'bg-yellow-100', 'hover:bg-yellow-200', 'p-3', 'rounded-md', 'text-gray-800', 'text-xs', 'font-medium', 'border', 'border-yellow-300', 'text-center');
                 ideaDiv.setAttribute('draggable', true);
                 ideaDiv.dataset.id = item.id;
                 ideaDiv.dataset.matched = 'false';
                 ideaDiv.textContent = item.idea;
                 
-                // Adicionar listeners ao Item Arrastaável
                 ideaDiv.addEventListener('dragstart', handleDragStart);
                 ideaDiv.addEventListener('dragend', handleDragEnd);
 
@@ -243,11 +235,9 @@
         }
 
         function resetGame() {
-            // A maneira mais simples de limpar e recriar, removendo listeners
             const ideasColumn = document.getElementById('ideas-column');
             const authorsColumn = document.getElementById('author-column');
             
-            // Limpa o conteúdo e os listeners antigos
             while (ideasColumn.firstChild) ideasColumn.removeChild(ideasColumn.firstChild);
             while (authorsColumn.firstChild) authorsColumn.removeChild(authorsColumn.firstChild);
 
@@ -256,7 +246,6 @@
 
         // Inicializa o jogo ao carregar a página
         document.addEventListener('DOMContentLoaded', setupGame);
-
     </script>
 </body>
 </html>
