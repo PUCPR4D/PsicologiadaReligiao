@@ -1,92 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo de Relacionar Autores (Clique)</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jogo de Relacionar Autores (Input)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f7f7f7;
-            padding: 1rem; 
-        }
-        /* Estilos base para itens clicáveis */
-        .clickable-item {
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-            min-height: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        /* Item não selecionado (Ideia-Chave) */
-        .idea-item {
-            border: 1px solid #fed7aa; /* Amarelo claro */
-        }
-        /* Item selecionado (Autor ou Ideia) */
-        .selected {
-            border: 2px solid #3b82f6 !important; /* Azul */
-            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3) !important;
-            transform: scale(1.02);
-            background-color: #dbeafe !important; /* Azul muito claro */
-        }
-        /* Estilos de feedback */
-        .correct {
-            background-color: #d1fae5 !important; /* Verde claro */
-            border-color: #059669 !important; /* Verde escuro */
-            cursor: default !important;
-        }
-        .correct-author {
-            background-color: #a7f3d0 !important; /* Verde um pouco mais escuro */
-            cursor: default !important;
-        }
-        .incorrect {
-            background-color: #fee2e2 !important; /* Vermelho claro */
-            border-color: #ef4444 !important; /* Vermelho escuro */
-        }
-        .matched {
-            cursor: default !important;
-            opacity: 0.7;
-            box-shadow: none !important;
-            pointer-events: none; /* Impede novos cliques após o match */
-        }
+        body { font-family: 'Poppins', sans-serif; background-color: #f7f7f7; padding: 1rem; }
+        .correct { background-color: #d1fae5 !important; border-color: #059669 !important; }
+        .incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
     </style>
 </head>
-
 <body class="p-4">
     <div class="max-w-6xl mx-auto">
         <h1 class="text-2xl font-bold mb-4 text-gray-800 text-center">🧠 Jogo de Relacionar Autores e Ideias-Chave</h1>
-        
-        <div id="game-container" class="bg-white p-4 rounded-lg shadow-xl border border-gray-200 max-h-[90vh] flex flex-col">
-            
-            <div class="flex flex-col lg:flex-row gap-6 overflow-hidden flex-grow">
-                
-                <div class="lg:w-1/2 flex flex-col min-h-0">
-                    <h2 class="text-lg font-semibold text-indigo-700 border-b pb-1 mb-2">Autores</h2>
-                    <div id="author-column" class="flex flex-col space-y-2 overflow-y-auto pr-1"> 
-                         </div>
+
+        <div id="game-container" class="bg-white p-4 rounded-lg shadow-xl border border-gray-200">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                <div>
+                    <h2 class="text-lg font-semibold text-indigo-700 border-b pb-1 mb-2">Autores (digite o número da ideia)</h2>
+                    <div id="author-column" class="flex flex-col space-y-3"></div>
                 </div>
 
-                <div class="lg:w-1/2 flex flex-col min-h-0">
-                    <h2 class="text-lg font-semibold text-indigo-700 border-b pb-1 mb-2">Ideias-Chave (Clique para Relacionar)</h2>
-                    <div id="ideas-column" class="grid grid-cols-1 sm:grid-cols-2 gap-2 overflow-y-auto pr-1">
-                        </div>
+                <div>
+                    <h2 class="text-lg font-semibold text-indigo-700 border-b pb-1 mb-2">Ideias-Chave</h2>
+                    <div id="ideas-column" class="flex flex-col space-y-2"></div>
                 </div>
 
             </div>
-            
-            <div class="text-center mt-4 flex-shrink-0">
-                <button onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300 shadow-md text-sm">
-                    Verificar Respostas
-                </button>
+
+            <div class="text-center mt-4">
+                <button onclick="checkAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg">Verificar</button>
                 <p id="result-message" class="text-base font-semibold mt-2"></p>
-                <button onclick="resetGame()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded-lg transition duration-300 mt-2 text-sm">
-                    Reiniciar Jogo
-                </button>
             </div>
         </div>
     </div>
@@ -94,206 +40,52 @@
     <script>
         const data = [
             { id: 1, author: "William James", idea: "Religião transforma a vida; vivida de forma concreta e subjetiva." },
-            { id: 2, author: "Sigmund Freud", idea: "Religião como ilusão; alívio psíquico, mas mantém dependência." },
-            { id: 3, author: "Carl Gustav Jung", idea: "Símbolos religiosos expressam o inconsciente; ajudam a criar sentido." },
-            { id: 4, author: "Rudolf Otto", idea: "Experiência do sagrado é misteriosa, fascinante e aterrorizante." },
-            { id: 5, author: "Mircea Eliade", idea: "O sagrado organiza cultura, tempo e identidade; visível em ritos e mitos." },
-            { id: 6, author: "Viktor Frankl", idea: "Espiritualidade como força de sentido; ajuda a enfrentar sofrimento." },
-            { id: 7, author: "Jean Piaget", idea: "Religiosidade evolui: da vivência concreta infantil à compreensão simbólica adolescente." },
-            { id: 8, author: "Gordon Allport", idea: "Religiosidade intrínseca (autêntica) vs. extrínseca (instrumental)." },
-            { id: 9, author: "Geraldo Paiva", idea: "Psicologia da Religião no Brasil: campo interdisciplinar; considera pluralidade cultural e contexto social." },
-            { id: 10, author: "Mauro Amatuzzi", idea: "Religião acompanha o desenvolvimento humano; muda ao longo da vida." }
+            { id: 2, author: "Sigmund Freud", idea: "Religião como ilusão; alívio psíquico." },
+            { id: 3, author: "Carl Gustav Jung", idea: "Símbolos religiosos expressam o inconsciente." },
+            { id: 4, author: "Rudolf Otto", idea: "Experiência do sagrado: misteriosa e fascinante." },
+            { id: 5, author: "Mircea Eliade", idea: "O sagrado organiza cultura e identidade." },
+            { id: 6, author: "Viktor Frankl", idea: "Espiritualidade como força de sentido." },
         ];
 
-        let correctMatches = 0;
-        const totalItems = data.length;
-        // Variáveis para rastrear os cliques
-        let selectedAuthor = null;
-        let selectedIdea = null;
-
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
-        // --- Lógica de Clique ---
-
-        function deselectAll() {
-            if (selectedAuthor) {
-                selectedAuthor.element.classList.remove('selected');
-            }
-            if (selectedIdea) {
-                selectedIdea.element.classList.remove('selected');
-            }
-            selectedAuthor = null;
-            selectedIdea = null;
-        }
-
-        function handleAuthorClick(e) {
-            const authorElement = e.currentTarget;
-            const authorId = authorElement.dataset.id;
-            
-            // Se já for um match, ignore
-            if (authorElement.classList.contains('matched')) return;
-
-            // Limpa a seleção anterior
-            deselectAll();
-
-            // Seleciona o novo autor
-            selectedAuthor = { id: authorId, element: authorElement };
-            authorElement.classList.add('selected');
-
-            // Tenta fazer o match se uma ideia já estiver selecionada
-            if (selectedIdea) {
-                tryMatch();
-            }
-        }
-
-        function handleIdeaClick(e) {
-            const ideaElement = e.currentTarget;
-            const ideaId = ideaElement.dataset.id;
-
-            // Se já for um match, ignore
-            if (ideaElement.classList.contains('matched')) return;
-
-            // Limpa a seleção de ideia anterior (mantém o autor se houver)
-            if (selectedIdea) {
-                selectedIdea.element.classList.remove('selected');
-                selectedIdea = null;
-            }
-
-            // Seleciona a nova ideia
-            selectedIdea = { id: ideaId, element: ideaElement };
-            ideaElement.classList.add('selected');
-
-            // Tenta fazer o match se um autor já estiver selecionado
-            if (selectedAuthor) {
-                tryMatch();
-            }
-        }
-        
-        function tryMatch() {
-            // Verifica se as IDs são iguais
-            if (selectedAuthor.id === selectedIdea.id) {
-                // Match Correto!
-                
-                // 1. Marcar Autor como Match
-                selectedAuthor.element.classList.add('correct-author', 'matched');
-                selectedAuthor.element.classList.remove('selected');
-                
-                // 2. Marcar Ideia como Match e mover (visualização de match)
-                selectedIdea.element.classList.add('correct', 'matched');
-                selectedIdea.element.classList.remove('selected', 'idea-item');
-                
-                // 3. Inserir a Ideia ao lado do Autor
-                const dropZone = selectedAuthor.element.querySelector('.match-target');
-                dropZone.innerHTML = selectedIdea.element.innerHTML;
-                dropZone.classList.add('correct');
-                dropZone.classList.remove('bg-gray-50');
-
-                // 4. Esconder a Ideia da coluna de Ideias
-                selectedIdea.element.style.display = 'none';
-
-                correctMatches++;
-                deselectAll(); // Limpa as variáveis, mas não os elementos 'matched'
-
-            } else {
-                // Match Incorreto (Feedback visual temporário)
-                
-                selectedAuthor.element.classList.add('incorrect');
-                selectedIdea.element.classList.add('incorrect');
-
-                setTimeout(() => {
-                    selectedAuthor.element.classList.remove('incorrect');
-                    selectedIdea.element.classList.remove('incorrect');
-                    deselectAll(); // Limpa a seleção após o feedback de erro
-                }, 800);
-            }
-        }
-
-        // --- Configuração do Jogo ---
-
-        function setupGame() {
+        function loadGame() {
             const authors = document.getElementById('author-column');
             const ideas = document.getElementById('ideas-column');
-            authors.innerHTML = '';
-            ideas.innerHTML = '';
-            correctMatches = 0;
-            document.getElementById('result-message').textContent = '';
-            selectedAuthor = null;
-            selectedIdea = null;
 
-            const shuffledIdeas = shuffle([...data]);
-
-            // 2. Montar a coluna de Autores (Alvo de Clique)
             data.forEach(item => {
-                const authorItem = document.createElement('div');
-                // Adiciona a classe clickable-item para o estilo de interação
-                authorItem.classList.add('clickable-item', 'bg-white', 'p-2', 'rounded-lg', 'shadow-md', 'flex', 'items-center', 'space-x-3', 'border', 'hover:border-indigo-400');
-                authorItem.dataset.id = item.id;
-                authorItem.dataset.matched = 'false';
-                authorItem.addEventListener('click', handleAuthorClick);
-                
-                // Coluna do Autor (Nome)
-                const authorName = document.createElement('div');
-                authorName.classList.add('w-1/3', 'font-semibold', 'text-gray-900', 'text-sm');
-                authorName.textContent = item.author;
-                
-                // Coluna para o Match (Slot onde a Ideia entra)
-                const matchTarget = document.createElement('div');
-                matchTarget.classList.add('w-2/3', 'match-target', 'bg-gray-50', 'p-3', 'rounded-md', 'text-gray-600', 'text-xs', 'min-h-[3rem]', 'flex', 'items-center', 'justify-center', 'text-center', 'border', 'border-dashed', 'border-gray-300');
-                matchTarget.textContent = 'Clique no Autor e depois na Ideia-Chave';
-                
-                authorItem.appendChild(authorName);
-                authorItem.appendChild(matchTarget);
-                authors.appendChild(authorItem);
+                authors.innerHTML += `
+                    <div class='p-3 border rounded-lg bg-gray-50'>
+                        <p class='font-semibold text-gray-700'>${item.author}</p>
+                        <input id='input-${item.id}' type='number' class='mt-2 w-full p-2 border rounded' placeholder='Digite o número da ideia'>
+                    </div>`;
             });
 
-            // 3. Montar as Ideias-Chave (Clicáveis)
-            shuffledIdeas.forEach(item => {
-                const ideaDiv = document.createElement('div');
-                // Adiciona a classe clickable-item e idea-item
-                ideaDiv.classList.add('clickable-item', 'idea-item', 'bg-yellow-100', 'hover:bg-yellow-200', 'p-3', 'rounded-md', 'text-gray-800', 'text-xs', 'font-medium', 'text-center');
-                ideaDiv.dataset.id = item.id;
-                ideaDiv.dataset.matched = 'false';
-                ideaDiv.textContent = item.idea;
-                
-                ideaDiv.addEventListener('click', handleIdeaClick);
-
-                ideas.appendChild(ideaDiv);
+            const shuffled = [...data].sort(() => Math.random() - 0.5);
+            shuffled.forEach(item => {
+                ideas.innerHTML += `
+                    <div class='p-3 border rounded-lg bg-orange-50'>
+                        <p><span class='font-bold'>${item.id}.</span> ${item.idea}</p>
+                    </div>`;
             });
         }
 
         function checkAnswers() {
-            let message;
-            if (correctMatches === totalItems) {
-                message = `🎉 Parabéns! Você acertou todas as ${totalItems} correspondências!`;
-                document.getElementById('result-message').classList.remove('text-red-600', 'text-blue-600');
-                document.getElementById('result-message').classList.add('text-green-600');
-            } else {
-                message = `🧐 Você acertou ${correctMatches} de ${totalItems}. Continue tentando!`;
-                document.getElementById('result-message').classList.remove('text-green-600', 'text-blue-600');
-                document.getElementById('result-message').classList.add('text-red-600');
-            }
-            document.getElementById('result-message').textContent = message;
+            let correct = 0;
+            data.forEach(item => {
+                const inp = document.getElementById(`input-${item.id}`);
+                const value = Number(inp.value.trim());
+                inp.classList.remove('correct', 'incorrect');
+
+                if (value === item.id) {
+                    inp.classList.add('correct');
+                    correct++;
+                } else {
+                    inp.classList.add('incorrect');
+                }
+            });
+            document.getElementById('result-message').textContent = `Você acertou ${correct} de ${data.length}.`;
         }
 
-        function resetGame() {
-            const ideasColumn = document.getElementById('ideas-column');
-            const authorsColumn = document.getElementById('author-column');
-            
-            // Limpa o conteúdo e os listeners antigos
-            while (ideasColumn.firstChild) ideasColumn.removeChild(ideasColumn.firstChild);
-            while (authorsColumn.firstChild) authorsColumn.removeChild(authorsColumn.firstChild);
-
-            setupGame();
-        }
-
-        // Inicializa o jogo ao carregar a página
-        document.addEventListener('DOMContentLoaded', setupGame);
+        loadGame();
     </script>
 </body>
 </html>
