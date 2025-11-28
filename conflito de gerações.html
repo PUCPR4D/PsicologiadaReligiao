@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Atividade Interativa – Ciberreligião</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+        padding: 40px;
+        color: #333;
+    }
+    .container {
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        border: 3px solid #8A0538;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+        color: #8A0538;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    h2 {
+        color: #6D64AE;
+        margin-top: 30px;
+    }
+    .imagem {
+        text-align: center;
+        margin: 20px 0;
+    }
+    .imagem img {
+        max-width: 65%;
+        border-radius: 12px;
+        border: 4px solid #9654ff;
+    }
+    textarea {
+        width: 100%;
+        height: 180px;
+        padding: 12px;
+        border: 2px solid #8A0538;
+        border-radius: 8px;
+        font-size: 15px;
+        resize: vertical;
+    }
+    button {
+        background-color: #FF0040;
+        color: white;
+        border: none;
+        padding: 12px 22px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    button:hover {
+        background-color: #8A0538;
+    }
+    #feedback {
+        margin-top: 25px;
+        padding: 20px;
+        border-left: 6px solid #9654ff;
+        background: #f1e9ff;
+        border-radius: 8px;
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Estudo de Caso – Conflito de Gerações e Ciberreligião</h1>
+
+    <div class="imagem">
+        <img src="https://images.unsplash.com/photo-1586449480434-40c20d6f2501?q=80&w=1200&auto=format&fit=crop" alt="Avô e neto conversando">
+    </div>
+
+    <p><strong>Situação:</strong><br>
+    Henrique, 22 anos, está passando o final de semana na casa do avô, Sr. Augusto, de 78 anos. Durante o café, Henrique comenta que começou a participar de uma comunidade espiritual online, com meditações guiadas e encontros virtuais. Ele se refere a isso como uma forma de <em>ciberreligião</em>.</p>
+
+    <p>O avô franze a testa e diz:<br>
+    <em>“Isso aí não é religião, meu filho. Religião de verdade tem templo, padre, pastor… Essas coisas de internet são bobagem de jovem perdido.”</em></p>
+
+    <h2>Sua resposta</h2>
+    <p>Agora, escreva como Henrique explicaria ao avô o significado dessa nova forma de buscar o sagrado.</p>
+
+    <textarea id="resposta" placeholder="Escreva aqui sua resposta..."></textarea>
+    <br>
+    <button onclick="mostrarFeedback()">Enviar</button>
+
+    <div id="feedback">
+        <h2>Feedback</h2>
+        <p>Uma boa resposta deveria explicar, com respeito, que a modernidade líquida torna a espiritualidade mais flexível; que muitos jovens encontram o sagrado na natureza, arte, meditação ou ativismo; que a internet se tornou um novo espaço simbólico para a fé; e que isso não significa ausência de espiritualidade, mas transformação e pluralização das formas de viver o sagrado.</p>
+    </div>
+
+</div>
+
+<script>
+function mostrarFeedback() {
+    document.getElementById("feedback").style.display = "block";
+}
+</script>
+
+</body>
+</html>
