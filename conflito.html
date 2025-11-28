@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Atividade Interativa – Ciberreligião</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
     body {
-        font-family: Arial, sans-serif;
+        font-family: 'Source Sans 3', sans-serif;
         background-color: #f7f7f7;
         padding: 40px;
         color: #333;
+        font-size: 20px;
     }
     .container {
         max-width: 900px;
@@ -23,10 +25,12 @@
         color: #8A0538;
         text-align: center;
         margin-bottom: 20px;
+        font-size: 36px;
     }
     h2 {
         color: #6D64AE;
         margin-top: 30px;
+        font-size: 26px;
     }
     .imagem {
         text-align: center;
@@ -37,25 +41,36 @@
         border-radius: 12px;
         border: 4px solid #9654ff;
     }
+    .destaque {
+        background-color: #6D64AE;
+        color: white;
+        padding: 18px;
+        border-radius: 10px;
+        margin: 25px 0;
+        font-size: 20px;
+        line-height: 1.6;
+    }
     textarea {
         width: 100%;
-        height: 180px;
+        height: 200px;
         padding: 12px;
         border: 2px solid #8A0538;
         border-radius: 8px;
-        font-size: 15px;
+        font-size: 18px;
         resize: vertical;
+        font-family: 'Source Sans 3', sans-serif;
     }
     button {
         background-color: #FF0040;
         color: white;
         border: none;
-        padding: 12px 22px;
-        font-size: 16px;
+        padding: 14px 26px;
+        font-size: 18px;
         border-radius: 8px;
         cursor: pointer;
         margin-top: 10px;
         font-weight: bold;
+        font-family: 'Source Sans 3', sans-serif;
     }
     button:hover {
         background-color: #8A0538;
@@ -67,6 +82,7 @@
         background: #f1e9ff;
         border-radius: 8px;
         display: none;
+        font-size: 18px;
     }
 </style>
 </head>
@@ -76,37 +92,33 @@
 
     <h1>Vovô, deixa eu te explicar uma coisa…</h1>
 
-    <div class="imagem">
-        <img src="https://images.unsplash.com/photo-1586449480434-40c20d6f2501?q=80&w=1200&auto=format&fit=crop" alt="Avô e neto conversando">
+    <div class="destaque">
+        Henrique, 22 anos, está passando o final de semana na casa do avô, Sr. Augusto, de 78 anos. Durante o café, Henrique comenta que começou a participar de uma comunidade espiritual online, com meditações guiadas e encontros virtuais. Ele se refere a isso como uma forma de ciberreligião.<br><br>
+        O avô franze a testa e interrompe:<br>
+        “<em>“Isso aí não é religião, meu filho. Religião de verdade tem templo, padre, pastor… Essas coisas de internet são bobagem de jovem perdido. Como é que você vai achar Deus pela tela do celular?”</em><br><br>
+        Henrique percebe o tom de julgamento, mas mantém a calma. Ele sabe que seu avô foi criado numa tradição religiosa rígida, institucional, e que vê a fé como algo permanente e imutável. Ao mesmo tempo, Henrique reconhece que sua própria busca espiritual combina naturezas diferentes: meditação, cuidado ambiental, conversas filosóficas e rituais online. Ele respira fundo e tenta explicar ao avô essa nova forma de viver o sagrado — sem confrontá-lo, apenas apresentando seu ponto de vista e dando sentido à sua experiência.
     </div>
 
-    Henrique, 22 anos, está passando o final de semana na casa do avô, Sr. Augusto, de 78 anos. Durante o café, Henrique comenta que começou a participar de uma comunidade espiritual online, com meditações guiadas e encontros virtuais. Ele se refere a isso como uma forma de <em>ciberreligião</em>.</p>
+    <div class="imagem">
+        <img src="https://images.unsplash.com/photo-1584530008940-9f43f0d5e9a6?w=900" alt="Neto e avô conversando">
+    </div>
 
-    <p>O avô franze a testa e interrompe:<br>
-    <em>“Isso aí não é religião, meu filho. Religião de verdade tem templo, padre, pastor… Essas coisas de internet são bobagem de jovem perdido. Como é que você vai achar Deus pela tela do celular?”</em></p>
+    <h2>Sua resposta</h2>
+    <p>Assuma o papel de Henrique e explique ao avô como você entende essa nova forma de espiritualidade.</p>
 
-    Henrique percebe o tom de julgamento, mas mantém a calma. Ele sabe que seu avô foi criado numa tradição religiosa rígida, institucional, e que vê a fé como algo permanente e imutável. Ao mesmo tempo, Henrique reconhece que sua própria busca espiritual combina naturezas diferentes: meditação, cuidado ambiental, conversas filosóficas e rituais online.
-Ele respira fundo e tenta explicar ao avô essa nova forma de viver o sagrado — sem confrontá-lo, apenas apresentando seu ponto de vista e dando sentido à sua experiência.
-
-    <h2>Sua vez!</h2>
-    <p>Assuma o papel de Henrique, o neto e com base nos seus conhecimentos sobre modernidade líquida e as novas formas de vivenciar o sagrado, escreva uma resposta que Henrique daria ao avô, explicando por que muitos jovens buscam espiritualidades mais flexíveis; como o sagrado pode aparecer em novas linguagens (arte, natureza, ativismo, redes digitais) e por que isso não significa abandono da fé, mas transformação.</p>
-    </p>A resposta deve ser respeitosa, mesmo diante do preconceito do avô e conectar explicitamente a explicação aos conceitos do texto-base (modernidade líquida, subjetividade religiosa, pluralismo religioso, novos “templos simbólicos”).</p>
-    
     <textarea id="resposta" placeholder="Escreva aqui sua resposta..."></textarea>
-    <br>
     <button onclick="mostrarFeedback()">Enviar</button>
 
     <div id="feedback">
-        <h2>Feedback</h2>
-        <p>Uma boa resposta deveria explicar, com respeito, que a modernidade líquida torna a espiritualidade mais flexível; que muitos jovens encontram o sagrado na natureza, arte, meditação ou ativismo; que a internet se tornou um novo espaço simbólico para a fé; e que isso não significa ausência de espiritualidade, mas transformação e pluralização das formas de viver o sagrado.
-        Por exemplo: “Vô, eu entendo que para o senhor a religião sempre esteve ligada ao templo, ao padre, à missa, porque essa foi a forma como a sua geração viveu o sagrado.
-Mas hoje muita coisa mudou, não só a religião. Os sociólogos falam que nós vivemos numa modernidade líquida, em que tudo se torna mais flexível e cada pessoa busca sentido de um jeito mais pessoal.
-A fé não desapareceu, vô. O que acontece é que ela se espalhou para outros lugares. Tem gente que encontra o sagrado na natureza, na arte, na meditação, no cuidado com o meio ambiente ou até em causas sociais. São formas diferentes de buscar algo que transcende a gente.
-É isso que chamam de ciberreligião: quando o sagrado também aparece nos espaços digitais. Grupos de oração online, meditações ao vivo, comunidades virtuais… A internet virou um dos lugares onde as pessoas se conectam com algo maior. Não substitui nada, mas amplia.
-Os estudiosos dizem que o mundo hoje não tem menos religião, e sim mais pluralismo religioso. Cada pessoa encontra um modo próprio de viver a fé, de acordo com sua história e seus valores.
-Para mim, participar desses encontros online é uma forma de cuidar do meu espírito. Não é que eu não acredite em Deus, é que eu encontro sentido de um jeito diferente do seu. E tudo bem. A fé continua sendo uma busca pelo que dá sentido à vida, só que agora cada um busca esse sentido no seu ritmo e no seu lugar, inclusive pela tela.
-Eu não quero convencer o senhor, só queria que entendesse que, para a minha geração, a espiritualidade pode ter muitas linguagens. Mas continua sendo fé.”
-
+        <h3>Feedback:</h3>
+        <p>
+            Boa explicação! Ao responder, o importante é:
+            <ul>
+                <li>mostrar respeito pela visão do avô;</li>
+                <li>explicar que a espiritualidade hoje é mais plural e personalizada;</li>
+                <li>mostrar que a internet é apenas um novo espaço para práticas religiosas;</li>
+                <li>reforçar que a busca pelo sagrado continua existindo, só mudou de forma.</li>
+            </ul>
         </p>
     </div>
 
@@ -114,7 +126,7 @@ Eu não quero convencer o senhor, só queria que entendesse que, para a minha ge
 
 <script>
 function mostrarFeedback() {
-    document.getElementById("feedback").style.display = "block";
+    document.getElementById('feedback').style.display = 'block';
 }
 </script>
 
